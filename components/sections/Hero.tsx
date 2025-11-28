@@ -1,18 +1,21 @@
 'use client'
 
 import React from 'react'
-import { GlitchText } from '@/components/ui/GlitchText'
 import { PerspectiveGrid } from '@/components/ui/PerspectiveGrid'
 import { RadarSweep } from '@/components/ui/RadarSweep'
-import { TerminalBox } from '@/components/ui/TerminalBox'
-import { TypewriterText } from '@/components/ui/TypewriterText'
-import { StatusIndicator } from '@/components/ui/StatusIndicator'
 import { CornerBrackets } from '@/components/ui/CornerBrackets'
-import { Button } from '@/components/ui/Button'
-import { ChevronDown } from 'lucide-react'
+import { ParticleField } from '@/components/effects/ParticleField'
+import { CursorTrail } from '@/components/effects/CursorTrail'
+import { AnimatedGridLayer } from '@/components/backgrounds/AnimatedGridLayer'
+import { RadialPulse } from '@/components/effects/RadialPulse'
+import { ChromaticText } from '@/components/text/ChromaticText'
+import { HolographicTerminal } from '@/components/effects/HolographicTerminal'
+import { CornerHUD, TopLeft, TopRight, BottomLeft, BottomRight } from '@/components/hud/CornerHUD'
+import { LiveClock, SystemUptime, NetworkIndicator, CPUMeter, CoordinateDisplay, VersionTag } from '@/components/hud/HUDElements'
+import { ScrollIndicator } from '@/components/ui/ScrollIndicator'
 
 /**
- * Hero section - Command Center with split-color identity
+ * Hero section - Revolutionary Living Command Center
  */
 export const Hero: React.FC = () => {
   const scrollToTools = () => {
@@ -21,20 +24,36 @@ export const Hero: React.FC = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
-      {/* Animated Background */}
+      {/* Layer 1: Deep Background - Slowly rotating grid */}
+      <div className="absolute inset-0 opacity-20">
+        <AnimatedGridLayer rotation={0.1} speed={20} perspective={1000} color="rgba(88, 166, 255, 0.3)" />
+      </div>
+
+      {/* Layer 2: Particle System - Floating data points */}
+      <ParticleField count={100} colors={['#58a6ff', '#ff0055', '#00ffc8']} behavior="float" mouseInteractive={true} />
+
+      {/* Layer 3: Scanline Grid - Tron-style with pulse */}
       <div className="absolute inset-0">
         <PerspectiveGrid />
         <RadarSweep />
       </div>
 
+      {/* Layer 4: Radial Rings - Expanding circles */}
+      <RadialPulse center={{ x: '50%', y: '50%' }} rings={5} interval={3000} color="rgba(88, 166, 255, 0.1)" />
+
+      {/* Layer 5: Cursor Trail */}
+      <CursorTrail length={20} color="rgba(88, 166, 255, 0.5)" glowSize={30} />
+
       {/* Content */}
       <div className="relative z-10 container mx-auto max-w-6xl text-center px-4">
-        {/* Split-Color Logo with Glitch */}
+        {/* Split-Color Logo with Chromatic Aberration */}
         <div className="mb-6">
-          <h1 className="text-hero font-display font-bold leading-none">
-            <span className="text-defensive-primary">CYBER</span>
-            <span className="text-offensive-primary">FORGE</span>
-          </h1>
+          <ChromaticText mouseReactive={true} separationIntensity={3}>
+            <h1 className="text-hero font-display font-bold leading-none">
+              <span className="text-defensive-primary">CYBER</span>
+              <span className="text-offensive-primary">FORGE</span>
+            </h1>
+          </ChromaticText>
         </div>
 
         {/* Subtitle */}
@@ -42,27 +61,9 @@ export const Hero: React.FC = () => {
           &gt;_ MILITARY-GRADE UTILITIES FOR SECURITY PROFESSIONALS
         </p>
 
-        {/* Terminal Status Box */}
-        <div className="mb-12 flex justify-center">
-          <TerminalBox className="w-full max-w-2xl text-left">
-            <div className="space-y-3">
-              <div className="text-defensive-primary">
-                <TypewriterText 
-                  text="$ systemctl status cyberforge" 
-                  speed={30}
-                />
-              </div>
-              <div className="flex items-center gap-2 pt-2">
-                <span className="text-defensive-success">●</span>
-                <span className="text-white">
-                  Active: <span className="text-defensive-success">15 TOOLS OPERATIONAL</span>
-                </span>
-              </div>
-              <div className="text-gray-500 text-xs pl-4">
-                └─ DEFENSIVE: 5 | OFFENSIVE: 5 | OSINT: 5
-              </div>
-            </div>
-          </TerminalBox>
+        {/* Holographic Terminal Status Box */}
+        <div className="mb-12">
+          <HolographicTerminal />
         </div>
 
         {/* CTA Buttons */}
@@ -88,14 +89,35 @@ export const Hero: React.FC = () => {
         </div>
 
         {/* Scroll Indicator */}
-        <button
-          onClick={scrollToTools}
-          className="animate-bounce text-defensive-primary hover:text-offensive-primary transition-colors"
-          aria-label="Scroll to tools"
-        >
-          <ChevronDown className="w-8 h-8 mx-auto" />
-        </button>
+        <div onClick={scrollToTools}>
+          <ScrollIndicator className="cursor-pointer" />
+        </div>
       </div>
+
+      {/* Corner HUD Elements */}
+      <CornerHUD>
+        <TopLeft>
+          <div className="text-xs font-mono text-gray-500 space-y-1">
+            <LiveClock format="HH:mm:ss" />
+            <SystemUptime />
+          </div>
+        </TopLeft>
+
+        <TopRight>
+          <div className="text-xs font-mono text-gray-500 space-y-2">
+            <NetworkIndicator />
+            <CPUMeter animated={true} />
+          </div>
+        </TopRight>
+
+        <BottomLeft>
+          <CoordinateDisplay />
+        </BottomLeft>
+
+        <BottomRight>
+          <VersionTag>v2.3.5</VersionTag>
+        </BottomRight>
+      </CornerHUD>
 
       {/* Corner Brackets */}
       <CornerBrackets color="rgba(88, 166, 255, 0.3)" />
