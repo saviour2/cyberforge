@@ -1,13 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Fira+Code:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --font-geist-sans: 'Inter', sans-serif;
-  --font-geist-mono: 'JetBrains Mono', monospace;
+  --font-inter: 'Inter', sans-serif;
+  --font-jetbrains-mono: 'JetBrains Mono', monospace;
   --font-space-grotesk: 'Space Grotesk', sans-serif;
+  --font-ibm-plex-sans: 'IBM Plex Sans', sans-serif;
+  --font-ibm-plex-mono: 'IBM Plex Mono', monospace;
+  --font-fira-code: 'Fira Code', monospace;
 }
 
 * {
@@ -21,8 +24,9 @@ html {
 }
 
 body {
-  @apply bg-void text-off-white;
-  font-family: var(--font-geist-sans);
+  background-color: #000000;
+  color: #e0e0e0;
+  font-family: var(--font-inter);
   position: relative;
   overflow-x: hidden;
 }
@@ -61,38 +65,42 @@ body::after {
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-void;
+  background-color: #0a0a0f;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-navy;
+  background-color: #1a1a2e;
   border-radius: 5px;
   border: 2px solid transparent;
   background-clip: content-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-neon-cyan/50;
+  background-color: rgba(88, 166, 255, 0.5);
 }
 
 /* Selection Styling */
 ::selection {
-  @apply bg-neon-cyan/30 text-off-white;
+  background-color: rgba(88, 166, 255, 0.3);
+  color: #e0e0e0;
 }
 
 /* Focus Rings with Glow */
 @layer base {
   *:focus-visible {
-    outline: 2px solid theme('colors.neon-cyan');
+    outline: 2px solid #58a6ff;
     outline-offset: 2px;
-    box-shadow: 0 0 20px rgba(0, 255, 157, 0.5);
+    box-shadow: 0 0 20px rgba(88, 166, 255, 0.5);
   }
 }
 
 /* Custom Utility Classes */
 @layer components {
   .text-gradient-cyber {
-    @apply bg-gradient-to-r from-neon-cyan via-electric-yellow to-hot-pink bg-clip-text text-transparent;
+    background: linear-gradient(to right, #58a6ff, #ffbe0b, #ff006e);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .border-glow {
@@ -148,7 +156,25 @@ body::after {
 
   /* Container */
   .container-cyber {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  @media (min-width: 640px) {
+    .container-cyber {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .container-cyber {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
   }
 }
 
@@ -162,13 +188,26 @@ body::after {
   }
 
   .text-section {
-    @apply text-3xl md:text-4xl font-bold;
+    font-size: 1.875rem;
+    font-weight: 700;
     letter-spacing: -0.01em;
+  }
+  
+  @media (min-width: 768px) {
+    .text-section {
+      font-size: 2.25rem;
+    }
   }
 
   .text-body {
-    @apply text-base md:text-lg;
+    font-size: 1rem;
     line-height: 1.7;
+  }
+  
+  @media (min-width: 768px) {
+    .text-body {
+      font-size: 1.125rem;
+    }
   }
 }
 

@@ -9,23 +9,54 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Legacy colors
         void: '#0a0a0f',
         navy: '#1a1a2e',
-        'neon-cyan': '#00ff9d',
-        'hot-pink': '#ff006e',
-        'electric-yellow': '#ffbe0b',
         'off-white': '#e0e0e0',
+        
+        // Defensive Ops - The Vault (Blue/Clinical)
+        defensive: {
+          bg: '#0d1117',
+          primary: '#58a6ff',
+          success: '#7ee787',
+          warning: '#f0883e',
+          border: 'rgba(88, 166, 255, 0.2)',
+        },
+        
+        // Offensive Recon - The Shadow (Red/Terminal)
+        offensive: {
+          bg: '#000000',
+          primary: '#ff0055',
+          accent: '#00ff41',
+          warning: '#ffee00',
+          border: 'rgba(255, 0, 85, 0.3)',
+        },
+        
+        // OSINT - The Panopticon (Cyan/Surveillance)
+        osint: {
+          bg: '#0a0e27',
+          primary: '#00ffc8',
+          accent: '#ff006e',
+          warning: '#ffbe0b',
+          border: 'rgba(0, 255, 200, 0.15)',
+        },
       },
       fontFamily: {
-        sans: ['var(--font-geist-sans)'],
-        mono: ['var(--font-geist-mono)'],
+        sans: ['var(--font-inter)'],
+        mono: ['var(--font-jetbrains-mono)'],
         display: ['var(--font-space-grotesk)'],
+        defensive: ['var(--font-ibm-plex-sans)'],
+        terminal: ['var(--font-fira-code)'],
       },
       animation: {
         'grain': 'grain 0.1s steps(10) infinite',
         'glitch': 'glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite',
         'pulse-glow': 'pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'scanline': 'scanline 8s linear infinite',
+        'heartbeat': 'heartbeat 1.5s ease-in-out infinite',
+        'radar-sweep': 'radar-sweep 4s linear infinite',
+        'scan-line': 'scan-line 2s linear infinite',
+        'blink': 'blink 1s step-end infinite',
       },
       keyframes: {
         grain: {
@@ -81,6 +112,23 @@ const config: Config = {
           '100%': {
             transform: 'translateY(100vh)',
           },
+        },
+        heartbeat: {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.3' },
+        },
+        'radar-sweep': {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
+        'scan-line': {
+          '0%': { top: '0', opacity: '1' },
+          '50%': { opacity: '0.5' },
+          '100%': { top: '100%', opacity: '0' },
+        },
+        blink: {
+          '0%, 50%': { opacity: '1' },
+          '51%, 100%': { opacity: '0' },
         },
       },
       backgroundImage: {
